@@ -44,7 +44,7 @@ Ce projet a été réalisé dans le but de mettre en pratique les concepts d'arc
 
 1. **Cloner le repository**
    ```bash
-   git clone [URL_DU_REPO]
+   git clone [[URL_DU_REPO]](https://github.com/pycrafted/mglsi_news/)
    cd mglsi_news
    ```
 
@@ -95,57 +95,10 @@ mglsi_news/
 └── README.md          # Documentation
 ```
 
-## 👥 Rôles Utilisateurs
-
-- **Journaliste**
-  - Création et modification d'articles
-  - Gestion de son contenu
-  - Accès au tableau de bord
-
-- **Administrateur**
-  - Toutes les fonctionnalités du journaliste
-  - Gestion des utilisateurs
-  - Gestion des catégories
-  - Accès aux statistiques
-
-## 🔒 Sécurité
-
-- Protection contre les injections SQL via PDO
-- Validation des entrées utilisateur
-- Échappement des données HTML
-- Gestion sécurisée des sessions
-- Protection des routes sensibles
-
-## 🎨 Personnalisation
-
-Le site peut être personnalisé en modifiant :
-- Les fichiers CSS dans le dossier `css/`
-- Les templates dans le dossier `includes/`
-- Les paramètres de configuration dans `config/`
-
-## 🤝 Contribution
-
-Ce projet étant un travail de cours, les contributions sont limitées aux étudiants de la formation MGLSI. Pour contribuer :
-
-1. Fork le projet
-2. Créer une branche pour votre fonctionnalité
-3. Commiter vos changements
-4. Pousser vers la branche
-5. Ouvrir une Pull Request
-
-## 📝 Licence
-
-Ce projet est un travail académique et n'est pas destiné à une utilisation commerciale.
-
 ## 👨‍💻 Auteur
 
 - **MGLSI Team**
-  - Étudiant en Architecture Logicielle
+  - Email: abdoulayelah@esp.sn
+  - Étudiant en Génie logicielle et système d'information à l'ESP
   - Formation MGLSI
 
-## 🙏 Remerciements
-
-- Notre professeur d'Architecture Logicielle pour son encadrement
-- XAMPP pour l'environnement de développement
-- Font Awesome pour les icônes
-- Tous les camarades de classe qui ont contribué au projet 
