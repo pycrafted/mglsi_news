@@ -35,7 +35,7 @@ MGLSI News est une plateforme de gestion de contenu (CMS) moderne permettant la 
 
 1. **Cloner le repository**
    ```bash
-   git clone [URL_DU_REPO]
+   git clone [[URL_DU_REPO]](https://github.com/pycrafted/mglsi_news/)
    cd mglsi_news
    ```
 
@@ -93,49 +93,5 @@ mglsi_news/
   - Gestion de son contenu
   - Accès au tableau de bord
 
-- **Administrateur**
-  - Toutes les fonctionnalités du journaliste
-  - Gestion des utilisateurs
-  - Gestion des catégories
-  - Accès aux statistiques
-
-## 🔒 Sécurité
-
-- Protection contre les injections SQL via PDO
-- Validation des entrées utilisateur
-- Échappement des données HTML
-- Gestion sécurisée des sessions
-- Protection des routes sensibles
-
-## 🎨 Personnalisation
-
-Le site peut être personnalisé en modifiant :
-- Les fichiers CSS dans le dossier `css/`
-- Les templates dans le dossier `includes/`
-- Les paramètres de configuration dans `config/`
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues ! Pour contribuer :
-
-1. Fork le projet
-2. Créer une branche pour votre fonctionnalité
-3. Commiter vos changements
-4. Pousser vers la branche
-5. Ouvrir une Pull Request
-
-## 📝 Licence
-
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
 ## 👨‍💻 Auteur
-
-- **MGLSI Team**
-  - Email: [VOTRE_EMAIL]
-  - Site Web: [VOTRE_SITE]
-
-## 🙏 Remerciements
-
-- XAMPP pour l'environnement de développement
-- Font Awesome pour les icônes
-- Tous les contributeurs du projet 
+- Email: abdoulayelah@esp.sn
