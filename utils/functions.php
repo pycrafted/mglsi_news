@@ -1,8 +1,16 @@
 <?php
+/**
+ * Nettoie le texte pour éviter les attaques XSS
+ * Transforme les caractères spéciaux en entités HTML
+ */
 function safeHtml(string $data): string {
     return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Coupe un texte trop long et ajoute des points de suspension
+ * Utile pour les aperçus d'articles
+ */
 function truncateText(string $text, int $length): string {
     if (strlen($text) <= $length) {
         return $text;
@@ -10,6 +18,10 @@ function truncateText(string $text, int $length): string {
     return substr($text, 0, $length) . '...';
 }
 
+/**
+ * Récupère toutes les catégories pour le menu de navigation
+ * Les catégories sont triées par ordre alphabétique
+ */
 function getAllCategories(PDO $pdo): array {
     $sql = 'SELECT id, libelle FROM Categorie ORDER BY libelle';
     $stmt = $pdo->prepare($sql);
@@ -18,7 +30,8 @@ function getAllCategories(PDO $pdo): array {
 }
 
 /**
- * Récupère l'article "À la une" (le plus récent)
+ * Récupère l'article le plus récent pour la section "À la une"
+ * Inclut les informations de catégorie pour l'affichage
  */
 function getFeaturedArticle(PDO $pdo): ?array {
     $sql = 'SELECT a.id, a.titre, a.contenu, a.image, a.dateCreation, c.libelle AS categorie 
@@ -32,7 +45,8 @@ function getFeaturedArticle(PDO $pdo): ?array {
 }
 
 /**
- * Récupère les articles avec pagination
+ * Récupère les articles avec pagination et filtrage par catégorie
+ * Permet de naviguer facilement entre les pages d'articles
  */
 function getArticles(PDO $pdo, ?int $categoryId = null, int $page = 1, int $perPage = 10): array {
     $offset = ($page - 1) * $perPage;
@@ -55,7 +69,8 @@ function getArticles(PDO $pdo, ?int $categoryId = null, int $page = 1, int $perP
 }
 
 /**
- * Compte le nombre total d’articles pour la pagination
+ * Compte le nombre total d'articles pour la pagination
+ * Prend en compte le filtre par catégorie si spécifié
  */
 function getTotalArticles(PDO $pdo, ?int $categoryId = null): int {
     $sql = 'SELECT COUNT(*) FROM Article a';

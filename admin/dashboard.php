@@ -3,12 +3,15 @@ session_start();
 require_once '../config/db_connect.php';
 require_once '../utils/functions.php';
 
-// Vérification de l'authentification
+// Vérifie si l'utilisateur est connecté
+// Si non, redirige vers la page de connexion
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
     exit;
 }
 
+// Connexion à la base de données et récupération des articles
+// On récupère aussi les informations de catégorie et d'auteur pour l'affichage
 $pdo = getDatabaseConnection();
 $articles = $pdo->query('SELECT a.*, c.libelle as categorie_nom, u.nom as auteur_nom 
                         FROM Article a 
@@ -24,69 +27,72 @@ $articles = $pdo->query('SELECT a.*, c.libelle as categorie_nom, u.nom as auteur
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord - MGLSI News</title>
     <link rel="stylesheet" href="../css/style.css">
+    <!-- Intégration de Font Awesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        /* Styles pour le conteneur principal du tableau de bord */
         .dashboard-container {
-            padding: 20px;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+
+        /* En-tête du tableau de bord avec titre et bouton d'ajout */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 2rem;
         }
+
+        /* Style du bouton d'ajout d'article */
         .add-article-btn {
-            background: #28a745;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 4px;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            min-width: 200px;
-            justify-content: center;
-            font-size: 1.1rem;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
             font-weight: 500;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
+
         .add-article-btn:hover {
             background: #218838;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
-        .add-article-btn i {
-            font-size: 1.2rem;
-        }
+
+        /* Style du tableau des articles */
         .articles-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 1rem;
             background: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             border-radius: 8px;
             overflow: hidden;
         }
+
         .articles-table th,
         .articles-table td {
-            padding: 15px;
+            padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #eee;
         }
+
         .articles-table th {
-            background-color: #f8f9fa;
+            background: #f8f9fa;
             font-weight: 600;
-            color: #333;
         }
-        .articles-table tr:hover {
-            background-color: #f8f9fa;
-        }
+
+        /* Style des boutons d'action */
         .action-buttons {
             display: flex;
-            gap: 8px;
-            justify-content: flex-start;
+            gap: 0.5rem;
         }
+
         .action-btn {
             padding: 8px 12px;
             border-radius: 4px;
@@ -99,27 +105,37 @@ $articles = $pdo->query('SELECT a.*, c.libelle as categorie_nom, u.nom as auteur
             border: none;
             cursor: pointer;
         }
+
+        /* Style du bouton de modification */
         .edit-btn {
             background: #007bff;
             color: white;
         }
+
         .edit-btn:hover {
             background: #0056b3;
             transform: translateY(-2px);
         }
+
+        /* Style du bouton de suppression */
         .delete-btn {
             background: #dc3545;
             color: white;
         }
+
         .delete-btn:hover {
             background: #c82333;
             transform: translateY(-2px);
         }
+
+        /* Gestion de la responsivité du tableau */
         .table-responsive {
             overflow-x: auto;
             margin: 0 -20px;
             padding: 0 20px;
         }
+
+        /* Adaptations pour les appareils mobiles */
         @media (max-width: 768px) {
             .dashboard-header {
                 flex-direction: column;
@@ -145,6 +161,7 @@ $articles = $pdo->query('SELECT a.*, c.libelle as categorie_nom, u.nom as auteur
 
     <main class="container">
         <div class="dashboard-container">
+            <!-- En-tête avec titre et bouton d'ajout -->
             <div class="dashboard-header">
                 <h1>Tableau de bord</h1>
                 <a href="add_article.php" class="add-article-btn">
@@ -153,6 +170,7 @@ $articles = $pdo->query('SELECT a.*, c.libelle as categorie_nom, u.nom as auteur
                 </a>
             </div>
 
+            <!-- Tableau des articles avec gestion du défilement horizontal -->
             <div class="table-responsive">
                 <table class="articles-table">
                     <thead>
@@ -173,10 +191,12 @@ $articles = $pdo->query('SELECT a.*, c.libelle as categorie_nom, u.nom as auteur
                             <td><?php echo date('d/m/Y H:i', strtotime($article['dateCreation'])); ?></td>
                             <td>
                                 <div class="action-buttons">
+                                    <!-- Bouton de modification -->
                                     <a href="edit_article.php?id=<?php echo $article['id']; ?>" class="action-btn edit-btn">
                                         <i class="fas fa-edit"></i>
                                         <span>Modifier</span>
                                     </a>
+                                    <!-- Bouton de suppression avec confirmation -->
                                     <a href="delete_article.php?id=<?php echo $article['id']; ?>" 
                                        class="action-btn delete-btn" 
                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">

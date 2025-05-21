@@ -1,6 +1,15 @@
 # MGLSI News - Plateforme de Gestion de Contenu
 
-MGLSI News est une plateforme de gestion de contenu (CMS) moderne permettant la publication et la gestion d'articles de presse en ligne.
+Ce projet a été développé dans le cadre du cours d'Architecture Logicielle de la formation MGLSI. Il s'agit d'une plateforme de gestion de contenu (CMS) moderne permettant la publication et la gestion d'articles de presse en ligne.
+
+## 🎓 Contexte du Projet
+
+Ce projet a été réalisé dans le but de mettre en pratique les concepts d'architecture logicielle appris en cours, notamment :
+- Les principes SOLID
+- Les patterns de conception
+- L'architecture MVC
+- La séparation des responsabilités
+- La gestion des dépendances
 
 ## 🚀 Fonctionnalités
 
@@ -116,7 +125,7 @@ Le site peut être personnalisé en modifiant :
 
 ## 🤝 Contribution
 
-Les contributions sont les bienvenues ! Pour contribuer :
+Ce projet étant un travail de cours, les contributions sont limitées aux étudiants de la formation MGLSI. Pour contribuer :
 
 1. Fork le projet
 2. Créer une branche pour votre fonctionnalité
@@ -126,16 +135,17 @@ Les contributions sont les bienvenues ! Pour contribuer :
 
 ## 📝 Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+Ce projet est un travail académique et n'est pas destiné à une utilisation commerciale.
 
 ## 👨‍💻 Auteur
 
 - **MGLSI Team**
-  - Email: [VOTRE_EMAIL]
-  - Site Web: [VOTRE_SITE]
+  - Étudiant en Architecture Logicielle
+  - Formation MGLSI
 
 ## 🙏 Remerciements
 
+- Notre professeur d'Architecture Logicielle pour son encadrement
 - XAMPP pour l'environnement de développement
 - Font Awesome pour les icônes
-- Tous les contributeurs du projet 
+- Tous les camarades de classe qui ont contribué au projet 

@@ -3,16 +3,20 @@ session_start();
 require_once 'config/db_connect.php';
 require_once 'utils/functions.php';
 
+// Initialisation de la connexion et récupération des données
 $pdo = getDatabaseConnection();
 $categories = getAllCategories($pdo);
+
+// Récupération des paramètres de filtrage et pagination
 $selectedCategory = filter_input(INPUT_GET, 'category', FILTER_VALIDATE_INT);
 $page = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $perPage = 10;
 
-$featured = getFeaturedArticle($pdo);
-$articles = getArticles($pdo, $selectedCategory, $page, $perPage);
-$totalArticles = getTotalArticles($pdo, $selectedCategory);
-$totalPages = ceil($totalArticles / $perPage);
+// Récupération des articles
+$featured = getFeaturedArticle($pdo);  // Article à la une
+$articles = getArticles($pdo, $selectedCategory, $page, $perPage);  // Liste des articles
+$totalArticles = getTotalArticles($pdo, $selectedCategory);  // Nombre total d'articles
+$totalPages = ceil($totalArticles / $perPage);  // Calcul du nombre de pages
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +31,7 @@ $totalPages = ceil($totalArticles / $perPage);
     <?php include 'includes/header.php'; ?>
 
     <main class="container">
-        <!-- Section "À la une" -->
+        <!-- Section principale : Article à la une -->
         <?php if ($featured): ?>
             <section class="featured">
                 <h1>À la une</h1>
@@ -43,7 +47,7 @@ $totalPages = ceil($totalArticles / $perPage);
         <?php endif; ?>
 
         <div class="content-wrapper">
-            <!-- Liste des articles -->
+            <!-- Section des articles récents -->
             <section class="articles">
                 <h2>Dernières nouvelles</h2>
                 <?php foreach ($articles as $article): ?>
@@ -58,7 +62,7 @@ $totalPages = ceil($totalArticles / $perPage);
                     </article>
                 <?php endforeach; ?>
 
-                <!-- Pagination -->
+                <!-- Navigation entre les pages -->
                 <div class="pagination">
                     <?php if ($page > 1): ?>
                         <a href="?page=<?php echo $page - 1; ?><?php echo $selectedCategory ? '&category=' . $selectedCategory : ''; ?>">Précédent</a>
@@ -70,22 +74,22 @@ $totalPages = ceil($totalArticles / $perPage);
                 </div>
             </section>
 
-            <!-- Barre latérale avec publicités -->
+            <!-- Barre latérale : Espace publicitaire -->
             <aside class="sidebar">
                 <h3>Publicités</h3>
                 <div class="ad">
                     <a href="https://example.com" target="_blank">
-                    <img src="images/pub1.jpg" alt="Publicité verticale">
+                        <img src="images/pub1.jpg" alt="Publicité verticale">
                     </a>
                 </div>
                 <div class="ad">
                     <a href="https://example.com" target="_blank">
-                    <img src="images/pub2.jpg" alt="Publicité carrée">
+                        <img src="images/pub2.jpg" alt="Publicité carrée">
                     </a>
                 </div>
                 <div class="ad">
                     <a href="https://example.com" target="_blank">
-                    <img src="images/pub3.jpg" alt="Publicité rond">
+                        <img src="images/pub3.jpg" alt="Publicité rond">
                     </a>
                 </div>
             </aside>

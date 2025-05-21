@@ -3,10 +3,12 @@ require_once 'config/db_connect.php';
 require_once 'utils/functions.php';
 
 /**
- * Récupère un article spécifique par son ID
- * @param PDO $pdo Instance de connexion
- * @param int $id ID de l'article
- * @return array|null Détails de l'article ou null si non trouvé
+ * Récupère les détails d'un article spécifique
+ * Inclut les informations de catégorie pour l'affichage
+ * 
+ * @param PDO $pdo Connexion à la base de données
+ * @param int $id Identifiant de l'article à récupérer
+ * @return array|null Les détails de l'article ou null si non trouvé
  */
 function getArticleById(PDO $pdo, int $id): ?array {
     $sql = 'SELECT a.titre, a.contenu, a.image, a.dateCreation, c.libelle AS categorie 
@@ -19,16 +21,17 @@ function getArticleById(PDO $pdo, int $id): ?array {
     return $stmt->fetch() ?: null;
 }
 
-// Vérification de l'ID dans l'URL
+// Vérification et validation de l'ID de l'article
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id === false || $id === null) {
-    die('ID d’article invalide');
+    die('ID d\'article invalide');
 }
 
-// Connexion et récupération de l'article
+// Récupération des données de l'article
 $pdo = getDatabaseConnection();
 $article = getArticleById($pdo, $id);
 
+// Vérification que l'article existe
 if (!$article) {
     http_response_code(404);
     die('Article non trouvé');
@@ -48,12 +51,12 @@ if (!$article) {
 
     <main class="container">
         <article class="article-detail">
-            <!-- Navigation secondaire -->
+            <!-- Navigation de retour -->
             <nav class="article-nav">
                 <a href="index.php" class="back-link">← Retour aux actualités</a>
             </nav>
 
-            <!-- Titre et métadonnées -->
+            <!-- En-tête de l'article avec titre et métadonnées -->
             <header class="article-header">
                 <h1><?php echo safeHtml($article['titre']); ?></h1>
                 <p class="meta">
@@ -62,7 +65,7 @@ if (!$article) {
                 </p>
             </header>
 
-            <!-- Image et contenu -->
+            <!-- Corps de l'article avec image et contenu -->
             <div class="article-body">
                 <?php if ($article['image']): ?>
                     <figure class="article-image">

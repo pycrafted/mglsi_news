@@ -1,29 +1,35 @@
-# Fichiers de configuration sensibles
+# Ne pas partager les informations sensibles
+# Ces fichiers contiennent des mots de passe et des configurations privées
 config/db_connect.php
 
 # Fichiers d'environnement
+# On garde un exemple mais on ne partage pas les vraies variables d'environnement
 .env
 .env.*
 !.env.example
 
-# Dépendances et packages
+# Dossiers de dépendances
+# Ces dossiers sont volumineux et peuvent être recréés avec composer/npm
 /vendor/
 /node_modules/
 composer.lock
 package-lock.json
 
-# Fichiers de cache et logs
+# Fichiers de logs et cache
+# Ces fichiers sont générés automatiquement et peuvent être recréés
 /logs/
 *.log
 *.cache
 *.tmp
 
 # Fichiers système
+# Ces fichiers sont créés automatiquement par votre système d'exploitation
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Fichiers d'IDE et éditeurs
+# Fichiers de configuration d'éditeurs
+# Chacun utilise son propre éditeur, pas besoin de partager ces fichiers
 .idea/
 .vscode/
 *.sublime-project
@@ -31,57 +37,69 @@ desktop.ini
 *.swp
 *.swo
 
-# Fichiers de build et compilation
+# Fichiers générés
+# Ces fichiers sont créés lors de la compilation
 /build/
 /dist/
 *.min.js
 *.min.css
 
 # Fichiers de base de données
+# On ne partage pas les données, seulement la structure
 *.sql
 *.sqlite
 *.db
 
-# Fichiers de backup
+# Sauvegardes
+# Les fichiers de backup sont locaux
 *.bak
 *.backup
 *~
 
-# Fichiers d'upload temporaires
+# Fichiers temporaires d'upload
+# Ces fichiers sont créés pendant l'upload
 /uploads/temp/
 *.tmp
 
-# Fichiers de configuration XAMPP spécifiques
+# Configuration XAMPP
+# Ces dossiers sont spécifiques à votre installation
 xampp/
 apache/
 mysql/
 
-# Fichiers de session PHP
+# Sessions PHP
+# Les fichiers de session sont personnels
 sessions/
 *.session
 
-# Fichiers de cache PHP
+# Cache PHP
+# Le cache est régénéré automatiquement
 *.cache.php
 opcache/
 
-# Fichiers de test
+# Tests
+# Les rapports de test sont générés localement
 /tests/coverage/
 .phpunit.result.cache
 
-# Fichiers de documentation générés
+# Documentation générée
+# On ne partage que le code source de la documentation
 /docs/_build/
 /docs/_static/
 /docs/_templates/
 
-# Fichiers de configuration personnalisés
+# Configurations personnalisées
+# Chacun a ses propres paramètres
 config.local.php
 config.prod.php
 config.dev.php
 
-# Fichiers de média uploadés (à adapter selon vos besoins)
+# Médias uploadés
+# On garde le dossier mais pas son contenu
 /images/uploads/*
 !/images/uploads/.gitkeep
 
-# Fichiers de cache des images
+# Cache des images
+# Les images en cache sont générées automatiquement
 /images/cache/*
 !/images/cache/.gitkeep 

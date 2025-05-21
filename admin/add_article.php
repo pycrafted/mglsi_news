@@ -3,39 +3,49 @@ session_start();
 require_once '../config/db_connect.php';
 require_once '../utils/functions.php';
 
-// Vérification de l'authentification
+// Vérifie si l'utilisateur est connecté
+// Si non, redirige vers la page de connexion
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../login.php');
     exit;
 }
 
+// Initialisation des variables
 $pdo = getDatabaseConnection();
 $categories = $pdo->query('SELECT * FROM Categorie ORDER BY libelle')->fetchAll();
 $error = '';
 $success = '';
 
+// Traitement du formulaire lors de la soumission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupération et nettoyage des données du formulaire
     $titre = filter_input(INPUT_POST, 'titre', FILTER_SANITIZE_STRING);
     $contenu = $_POST['contenu'] ?? '';
     $categorie = filter_input(INPUT_POST, 'categorie', FILTER_VALIDATE_INT);
     
+    // Vérification que tous les champs requis sont remplis
     if ($titre && $contenu && $categorie) {
         $image = '';
         
-        // Gestion de l'upload d'image
+        // Gestion de l'upload d'image si une image est fournie
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = '../images/articles/';
+            
+            // Création du dossier d'upload s'il n'existe pas
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
             
+            // Vérification de l'extension du fichier
             $fileExtension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
             
             if (in_array($fileExtension, $allowedExtensions)) {
+                // Génération d'un nom de fichier unique
                 $newFileName = uniqid() . '.' . $fileExtension;
                 $uploadFile = $uploadDir . $newFileName;
                 
+                // Déplacement du fichier uploadé
                 if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
                     $image = 'images/articles/' . $newFileName;
                 } else {
@@ -46,13 +56,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
         
+        // Si aucune erreur n'est survenue, on enregistre l'article
         if (!$error) {
             try {
                 $stmt = $pdo->prepare('INSERT INTO Article (titre, contenu, image, categorie, auteur) VALUES (?, ?, ?, ?, ?)');
                 $stmt->execute([$titre, $contenu, $image, $categorie, $_SESSION['user_id']]);
                 $success = 'Article ajouté avec succès';
                 
-                // Réinitialisation du formulaire
+                // Réinitialisation du formulaire après succès
                 $titre = $contenu = '';
                 $categorie = null;
             } catch (PDOException $e) {
@@ -125,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="form-container">
             <h1>Ajouter un article</h1>
             
+            <!-- Affichage des messages d'erreur ou de succès -->
             <?php if ($error): ?>
                 <div class="error-message"><?php echo safeHtml($error); ?></div>
             <?php endif; ?>
@@ -133,12 +145,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="success-message"><?php echo safeHtml($success); ?></div>
             <?php endif; ?>
             
+            <!-- Formulaire d'ajout d'article -->
             <form method="POST" action="" enctype="multipart/form-data">
+                <!-- Champ titre -->
                 <div class="form-group">
                     <label for="titre">Titre :</label>
                     <input type="text" id="titre" name="titre" value="<?php echo safeHtml($titre ?? ''); ?>" required>
                 </div>
                 
+                <!-- Sélection de la catégorie -->
                 <div class="form-group">
                     <label for="categorie">Catégorie :</label>
                     <select id="categorie" name="categorie" required>
@@ -151,16 +166,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </select>
                 </div>
                 
+                <!-- Upload d'image -->
                 <div class="form-group">
                     <label for="image">Image :</label>
                     <input type="file" id="image" name="image" accept="image/*">
                 </div>
                 
+                <!-- Contenu de l'article -->
                 <div class="form-group">
                     <label for="contenu">Contenu :</label>
                     <textarea id="contenu" name="contenu" required><?php echo safeHtml($contenu ?? ''); ?></textarea>
                 </div>
                 
+                <!-- Bouton de soumission -->
                 <button type="submit" class="submit-btn">Publier l'article</button>
             </form>
         </div>
