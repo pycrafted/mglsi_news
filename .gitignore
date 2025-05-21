@@ -1,0 +1,87 @@
+# Fichiers de configuration sensibles
+config/db_connect.php
+
+# Fichiers d'environnement
+.env
+.env.*
+!.env.example
+
+# Dépendances et packages
+/vendor/
+/node_modules/
+composer.lock
+package-lock.json
+
+# Fichiers de cache et logs
+/logs/
+*.log
+*.cache
+*.tmp
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Fichiers d'IDE et éditeurs
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Fichiers de build et compilation
+/build/
+/dist/
+*.min.js
+*.min.css
+
+# Fichiers de base de données
+*.sql
+*.sqlite
+*.db
+
+# Fichiers de backup
+*.bak
+*.backup
+*~
+
+# Fichiers d'upload temporaires
+/uploads/temp/
+*.tmp
+
+# Fichiers de configuration XAMPP spécifiques
+xampp/
+apache/
+mysql/
+
+# Fichiers de session PHP
+sessions/
+*.session
+
+# Fichiers de cache PHP
+*.cache.php
+opcache/
+
+# Fichiers de test
+/tests/coverage/
+.phpunit.result.cache
+
+# Fichiers de documentation générés
+/docs/_build/
+/docs/_static/
+/docs/_templates/
+
+# Fichiers de configuration personnalisés
+config.local.php
+config.prod.php
+config.dev.php
+
+# Fichiers de média uploadés (à adapter selon vos besoins)
+/images/uploads/*
+!/images/uploads/.gitkeep
+
+# Fichiers de cache des images
+/images/cache/*
+!/images/cache/.gitkeep 
