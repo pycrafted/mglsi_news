@@ -1,7 +1,3 @@
-# Ne pas partager les informations sensibles
-# Ces fichiers contiennent des mots de passe et des configurations privées
-config/db_connect.php
-
 # Fichiers d'environnement
 # On garde un exemple mais on ne partage pas les vraies variables d'environnement
 .env
