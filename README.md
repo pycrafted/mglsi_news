@@ -1,104 +1,117 @@
 # MGLSI News - Plateforme de Gestion de Contenu
 
-Ce projet a été développé dans le cadre du cours d'Architecture Logicielle de la formation MGLSI. Il s'agit d'une plateforme de gestion de contenu (CMS) moderne permettant la publication et la gestion d'articles de presse en ligne.
-
-## 🎓 Contexte du Projet
-
-Ce projet a été réalisé dans le but de mettre en pratique les concepts d'architecture logicielle appris en cours, notamment :
-- Les principes SOLID
-- Les patterns de conception
-- L'architecture MVC
-- La séparation des responsabilités
-- La gestion des dépendances
+Ce projet est une plateforme de gestion de contenu (CMS) moderne développée en PHP suivant l'architecture MVC. Il permet la publication et la gestion d'articles de presse en ligne.
 
 ## 🚀 Fonctionnalités
 
-- **Interface Publique**
-  - Page d'accueil avec articles en vedette
-  - Articles classés par catégories
-  - Navigation intuitive
-  - Design responsive
-  - Système de pagination
+### Interface Publique
+- Page d'accueil avec articles en vedette
+- Articles classés par catégories
+- Navigation intuitive
+- Design responsive
+- Système de pagination
+- Barre latérale avec publicités
 
-- **Espace Journaliste**
-  - Tableau de bord personnalisé
-  - Gestion des articles (CRUD)
-  - Interface d'édition intuitive
-  - Gestion des catégories
-  - Upload d'images
+### Espace Administration
+- Tableau de bord personnalisé
+- Gestion complète des articles (CRUD)
+- Interface d'édition intuitive
+- Gestion des catégories
+- Upload d'images
+- Authentification sécurisée
 
-- **Sécurité**
-  - Authentification sécurisée
-  - Protection contre les injections SQL
-  - Validation des données
-  - Gestion des sessions
+## 🛠️ Technologies Utilisées
+
+- PHP 7.4+
+- MySQL
+- HTML5/CSS3
+- JavaScript
+- Architecture MVC
+- Composer pour la gestion des dépendances
 
 ## 📋 Prérequis
 
 - PHP 7.4 ou supérieur
 - MySQL 5.7 ou supérieur
 - Serveur web (Apache recommandé)
+- Composer
 - XAMPP (recommandé pour le développement)
 
-## 🛠️ Installation
+## 🚀 Installation
 
 1. **Cloner le repository**
    ```bash
-   git clone [[URL_DU_REPO]](https://github.com/pycrafted/mglsi_news/)
+   git clone https://github.com/pycrafted/mglsi_news.git
    cd mglsi_news
    ```
 
-2. **Configurer la base de données**
+2. **Installer les dépendances**
+   ```bash
+   composer install
+   ```
+
+3. **Configurer la base de données**
    - Créer une base de données MySQL nommée `mglsi_news`
    - Importer le fichier `config/database.sql`
+   - Copier `config/db_connect.example.php` vers `config/db_connect.php`
+   - Modifier les paramètres de connexion dans `config/db_connect.php`
 
-3. **Configurer la connexion**
-   - Ouvrir `config/db_connect.php`
-   - Modifier les paramètres de connexion selon votre configuration :
-     ```php
-     $host = 'localhost';
-     $dbname = 'mglsi_news';
-     $username = 'root';  // Votre nom d'utilisateur MySQL
-     $password = '';      // Votre mot de passe MySQL
-     ```
+4. **Configurer le serveur web**
+   - Placer le projet dans le répertoire `htdocs` de XAMPP
+   - Configurer le VirtualHost si nécessaire
 
-4. **Déplacer les fichiers**
-   - Copier tous les fichiers dans le répertoire `htdocs` de XAMPP
-   - Le chemin final devrait être : `C:\xampp\htdocs\mglsi_news`
-
-5. **Démarrer les services**
-   - Lancer XAMPP Control Panel
-   - Démarrer Apache et MySQL
-
-6. **Accéder au site**
-   - Ouvrir votre navigateur
-   - Accéder à : `http://localhost/mglsi_news`
+5. **Créer un utilisateur test**
+   - Accéder à `admin/create_test_user.php` pour créer un compte administrateur
 
 ## 📁 Structure du Projet
 
 ```
 mglsi_news/
-├── admin/              # Interface d'administration
-│   ├── dashboard.php   # Tableau de bord
-│   ├── add_article.php # Ajout d'articles
-│   └── edit_article.php# Modification d'articles
-├── config/             # Configuration
-│   ├── db_connect.php  # Connexion à la base de données
-│   └── database.sql    # Structure de la base de données
+├── app/
+│   ├── Controllers/    # Contrôleurs de l'application
+│   ├── Models/         # Modèles de données
+│   ├── Views/          # Vues et templates
+│   ├── Core/           # Classes de base
+│   ├── Helpers/        # Classes utilitaires
+│   ├── Middleware/     # Middleware d'authentification
+│   └── Services/       # Services métier
+├── config/             # Fichiers de configuration
 ├── css/               # Styles CSS
 ├── images/            # Images et médias
-├── includes/          # Composants réutilisables
-├── utils/             # Fonctions utilitaires
-├── index.php          # Page d'accueil
-├── article.php        # Affichage d'un article
-├── login.php          # Page de connexion
-└── README.md          # Documentation
+├── vendor/            # Dépendances Composer
+└── public/            # Point d'entrée public
 ```
+
+## 🔒 Sécurité
+
+- Protection contre les injections SQL
+- Validation des données
+- Gestion sécurisée des sessions
+- Protection CSRF
+- Validation des fichiers uploadés
+
+## 👥 Contribution
+
+1. Fork le projet
+2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📝 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
 ## 👨‍💻 Auteur
 
-- **MGLSI Team**
-  - Email: abdoulayelah@esp.sn
-  - Étudiant en Génie logicielle et système d'information à l'ESP
-  - Formation MGLSI
+* **MGLSI Team**
+  * Email: abdoulayelah@esp.sn
+  * Étudiant en Génie logicielle et système d'information à l'ESP
+  * Formation MGLSI
+
+## 🙏 Remerciements
+
+- ESP (École Supérieure Polytechnique)
+- Formation MGLSI
+- Tous les contributeurs du projet
 
